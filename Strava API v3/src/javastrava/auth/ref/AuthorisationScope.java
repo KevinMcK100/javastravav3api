@@ -17,6 +17,7 @@ public enum AuthorisationScope {
 	 * This authorisation scope allows the Strava API to return data from within the authenticated user's privacy zones
 	 * </p>
 	 */
+	//Test Comment
 	VIEW_PRIVATE(StravaConfig.string("AuthorisationScope.view_private"), Messages.string("AuthorisationScope.view_private.description")),  //$NON-NLS-1$ //$NON-NLS-2$
 	/**
 	 * <p>
