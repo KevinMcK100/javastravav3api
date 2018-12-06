@@ -6,31 +6,62 @@ import javastrava.json.impl.serializer.AuthorisationScopeSerializer;
 
 /**
  * <p>
- * view_private and/or write, leave blank for read-only permissions.
+ * read_all, profile:read_all, profile:write, activity:read, activity:read_all, activity:write or leave blank for read-only permissions.
  * </p>
  *
  * @author Dan Shannon
  */
 public enum AuthorisationScope {
+	
 	/**
 	 * <p>
-	 * This authorisation scope allows the Strava API to return data from within the authenticated user's privacy zones
+	 * This authorisation scope allows the Strava API read private routes, private segments, and private events for the user
 	 * </p>
 	 */
-	//Test Comment
-	VIEW_PRIVATE(StravaConfig.string("AuthorisationScope.view_private"), Messages.string("AuthorisationScope.view_private.description")),  //$NON-NLS-1$ //$NON-NLS-2$
+	READ_ALL(StravaConfig.string("AuthorisationScope.read_all"), Messages.string("AuthorisationScope.read_all.description")),  //$NON-NLS-1$ //$NON-NLS-2$
+	
 	/**
 	 * <p>
-	 * This authorisation scope allows the Strava API to write data - that is to update athlete details, activity details, and to make comments and give kudos to other riders' activities
+	 * This authorisation scope allows the Strava API to read all profile information even if the user has set their profile visibility to Followers or Only You
 	 * </p>
 	 */
-	WRITE(StravaConfig.string("AuthorisationScope.write"), Messages.string("AuthorisationScope.write.description")),  //$NON-NLS-1$ //$NON-NLS-2$
+	PROFILE_READ_ALL(StravaConfig.string("AuthorisationScope.profile_read_all"), Messages.string("AuthorisationScope.profile_read_all.description")),  //$NON-NLS-1$ //$NON-NLS-2$
+	
+	/**
+	 * <p>
+	 * This authorisation scope allows the Strava API to update the user's weight and Functional Threshold Power (FTP), and access to star or unstar segments on their behalf
+	 * </p>
+	 */
+	PROFILE_WRITE(StravaConfig.string("AuthorisationScope.profile_write"), Messages.string("AuthorisationScope.profile_write.description")),  //$NON-NLS-1$ //$NON-NLS-2$
+	
+	/**
+	 * <p>
+	 * This authorisation scope allows the Strava API to read the user's activity data for activities that are visible to Everyone and Followers, excluding privacy zone data
+	 * </p>
+	 */
+	ACTIVITY_READ(StravaConfig.string("AuthorisationScope.activity_read"), Messages.string("AuthorisationScope.activity_read.description")),  //$NON-NLS-1$ //$NON-NLS-2$
+	
+	/**
+	 * <p>
+	 * This authorisation scope allows the Strava API the same access as activity:read, plus privacy zone data and access to read the user's activities with visibility set to Only You
+	 * </p>
+	 */
+	ACTIVITY_READ_ALL(StravaConfig.string("AuthorisationScope.activity_read_all"), Messages.string("AuthorisationScope.activity_read_all.description")),  //$NON-NLS-1$ //$NON-NLS-2$
+	
+	/**
+	 * <p>
+	 * This authorisation scope allows the Strava API to access to create manual activities and uploads, and access to edit any activities that are visible to the app, based on activity read access level
+	 * </p>
+	 */
+	ACTIVITY_WRITE(StravaConfig.string("AuthorisationScope.activity_write"), Messages.string("AuthorisationScope.activity_write.description")),  //$NON-NLS-1$ //$NON-NLS-2$
+	
 	/**
 	 * <p>
 	 * Should never occur but may if the Strava API behaviour has changed
 	 * </p>
 	 */
 	UNKNOWN(StravaConfig.string("Common.unknown"), Messages.string("Common.unknown.description")); //$NON-NLS-1$ //$NON-NLS-2$
+	
 	/**
 	 * <p>
 	 * Used when deserialising JSON returned by the Strava API

@@ -283,14 +283,14 @@ public class Token implements StravaEntity {
 
 	/**
 	 * <p>
-	 * Validates that the toke has view private access (according to the scopes that it was granted on creation at least; it is quite possible that permissions have subsequently been revoked by the
+	 * Validates that the token has read all access (according to the scopes that it was granted on creation at least; it is quite possible that permissions have subsequently been revoked by the
 	 * user)
 	 * </p>
 	 *
-	 * @return <code>true</code> if the token contains the {@link AuthorisationScope#VIEW_PRIVATE}
+	 * @return <code>true</code> if the token contains the {@link AuthorisationScope#READ_ALL}
 	 */
-	public boolean hasViewPrivate() {
-		if ((this.scopes != null) && this.scopes.contains(AuthorisationScope.VIEW_PRIVATE)) {
+	public boolean hasReadAllAccess() {
+		if ((this.scopes != null) && this.scopes.contains(AuthorisationScope.READ_ALL)) {
 			return true;
 		}
 		return false;
@@ -298,13 +298,69 @@ public class Token implements StravaEntity {
 
 	/**
 	 * <p>
-	 * Validates that the token has write access (according to the scopes that it was granted on creation at least; it is quite possible that permissions have subsequently been revoked by the user)
+	 * Validates that the token has read all access on the profile (according to the scopes that it was granted on creation at least; it is quite possible that permissions have subsequently been revoked by the user)
 	 * </p>
 	 *
-	 * @return <code>true</code> if the token contains the {@link AuthorisationScope#WRITE}
+	 * @return <code>true</code> if the token contains the {@link AuthorisationScope#PROFILE_READ_ALL}
 	 */
-	public boolean hasWriteAccess() {
-		if ((this.scopes != null) && this.scopes.contains(AuthorisationScope.WRITE)) {
+	public boolean hasProfileReadAllAccess() {
+		if ((this.scopes != null) && this.scopes.contains(AuthorisationScope.PROFILE_READ_ALL)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * <p>
+	 * Validates that the token has write access on the profile (according to the scopes that it was granted on creation at least; it is quite possible that permissions have subsequently been revoked by the user)
+	 * </p>
+	 *
+	 * @return <code>true</code> if the token contains the {@link AuthorisationScope#PROFILE_WRITE}
+	 */
+	public boolean hasProfileWriteAccess() {
+		if ((this.scopes != null) && this.scopes.contains(AuthorisationScope.PROFILE_WRITE)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * <p>
+	 * Validates that the token has read access for activities (according to the scopes that it was granted on creation at least; it is quite possible that permissions have subsequently been revoked by the user)
+	 * </p>
+	 *
+	 * @return <code>true</code> if the token contains the {@link AuthorisationScope#ACTIVITY_READ}
+	 */
+	public boolean hasActivityReadAccess() {
+		if ((this.scopes != null) && this.scopes.contains(AuthorisationScope.ACTIVITY_READ)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * <p>
+	 * Validates that the token has read all access for activities (according to the scopes that it was granted on creation at least; it is quite possible that permissions have subsequently been revoked by the user)
+	 * </p>
+	 *
+	 * @return <code>true</code> if the token contains the {@link AuthorisationScope#ACTIVITY_READ_ALL}
+	 */
+	public boolean hasActivityReadAllAccess() {
+		if ((this.scopes != null) && this.scopes.contains(AuthorisationScope.ACTIVITY_READ_ALL)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * <p>
+	 * Validates that the token write access for activities (according to the scopes that it was granted on creation at least; it is quite possible that permissions have subsequently been revoked by the user)
+	 * </p>
+	 *
+	 * @return <code>true</code> if the token contains the {@link AuthorisationScope#ACTIVITY_WRITE}
+	 */
+	public boolean hasActivityWriteAccess() {
+		if ((this.scopes != null) && this.scopes.contains(AuthorisationScope.ACTIVITY_WRITE)) {
 			return true;
 		}
 		return false;

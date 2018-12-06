@@ -72,7 +72,7 @@ public class PrivacyUtils {
 			}
 			// Else if it *is* private, and there's no view_private access or it belongs to someone else, then add as the private activity
 			else {
-				if (activityBelongsToAuthenticatedUser(activity, token) && token.hasViewPrivate()) {
+				if (activityBelongsToAuthenticatedUser(activity, token) && token.hasActivityReadAllAccess()) {
 					returnedActivities.add(activity);
 				} else {
 					returnedActivities.add(PrivacyUtils.privateActivity(activity.getId()));
@@ -165,7 +165,7 @@ public class PrivacyUtils {
 			}
 			// Otherwise if it belongs to the authenticated user and the token has view_private scope, then it's OK to return
 			else {
-				if (token.hasViewPrivate()) {
+				if (token.hasReadAllAccess()) {
 					returnedSegments.add(segment);
 				} else {
 					returnedSegments.add(PrivacyUtils.privateSegment(segment.getId()));

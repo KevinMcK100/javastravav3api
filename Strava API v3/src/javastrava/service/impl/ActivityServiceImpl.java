@@ -126,7 +126,7 @@ public class ActivityServiceImpl extends StravaServiceImpl implements ActivitySe
 
 		// TODO This is a workaround for issue #30 - API allows comments to be posted without write access
 		// Token must have write access
-		if (!(getToken().hasWriteAccess())) {
+		if (!(getToken().hasActivityWriteAccess())) {
 			throw new UnauthorizedException(Messages.string("ActivityServiceImpl.commentWithoutWriteAccess")); //$NON-NLS-1$
 		}
 		// End of workaround
@@ -174,12 +174,12 @@ public class ActivityServiceImpl extends StravaServiceImpl implements ActivitySe
 	@Override
 	public StravaActivity createManualActivity(final StravaActivity activity) {
 		// Token must have write access
-		if (!getToken().hasWriteAccess()) {
+		if (!getToken().hasActivityWriteAccess()) {
 			throw new UnauthorizedException(Messages.string("ActivityServiceImpl.createActivityWithoutWriteAccess")); //$NON-NLS-1$
 		}
 
 		// Token must have view_private to write a private activity
-		if ((activity.getPrivateActivity() != null) && activity.getPrivateActivity().equals(Boolean.TRUE) && !getToken().hasViewPrivate()) {
+		if ((activity.getPrivateActivity() != null) && activity.getPrivateActivity().equals(Boolean.TRUE) && !getToken().hasActivityReadAllAccess()) {
 			throw new UnauthorizedException(Messages.string("ActivityServiceImpl.createPrivateActivityWithoutViewPrivate")); //$NON-NLS-1$
 		}
 
@@ -214,7 +214,7 @@ public class ActivityServiceImpl extends StravaServiceImpl implements ActivitySe
 	@Override
 	public StravaActivity deleteActivity(final Long id) throws NotFoundException {
 		// Token must have write access
-		if (!getToken().hasWriteAccess()) {
+		if (!getToken().hasActivityWriteAccess()) {
 			throw new UnauthorizedException(Messages.string("ActivityServiceImpl.deleteActivityWithoutWriteAccess")); //$NON-NLS-1$
 		}
 
@@ -272,7 +272,7 @@ public class ActivityServiceImpl extends StravaServiceImpl implements ActivitySe
 	public void deleteComment(final Long activityId, final Integer commentId) throws NotFoundException {
 		// TODO This is a workaround for issue #63 (can delete comments without write access)
 		// Token must have write access
-		if (!(getToken().hasWriteAccess())) {
+		if (!(getToken().hasActivityWriteAccess())) {
 			throw new UnauthorizedException(Messages.string("ActivityServiceImpl.deleteCommentWithoutWriteAccess")); //$NON-NLS-1$
 		}
 		// End of workaround
@@ -421,7 +421,7 @@ public class ActivityServiceImpl extends StravaServiceImpl implements ActivitySe
 	@Override
 	public void giveKudos(final Long activityId) throws NotFoundException {
 		// Must have write access to give kudos
-		if (!(getToken().hasWriteAccess())) {
+		if (!(getToken().hasActivityWriteAccess())) {
 			throw new UnauthorizedException(Messages.string("ActivityServiceImpl.kudosWithoutWriteAccess")); //$NON-NLS-1$
 		}
 
@@ -437,7 +437,7 @@ public class ActivityServiceImpl extends StravaServiceImpl implements ActivitySe
 		}
 
 		// Must have view_private to give kudos to a private activity
-		if (!getToken().hasViewPrivate() && (activity.getResourceState() == StravaResourceState.PRIVATE)) {
+		if (!getToken().hasActivityReadAllAccess() && (activity.getResourceState() == StravaResourceState.PRIVATE)) {
 			throw new UnauthorizedException(Messages.string("ActivityServiceImpl.kudosPrivateActivityWithoutViewPrivate")); //$NON-NLS-1$
 		}
 

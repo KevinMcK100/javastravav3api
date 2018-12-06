@@ -251,7 +251,7 @@ public class SegmentServiceImpl extends StravaServiceImpl implements SegmentServ
 		// TODO Workaround for javastrava-api #70
 		// If the segment is private and the token doesn't have view_private
 		// scope, then return an empty segment
-		if ((segment.getResourceState() != StravaResourceState.PRIVATE) && segment.getPrivateSegment().equals(Boolean.TRUE) && !getToken().hasViewPrivate()) {
+		if ((segment.getResourceState() != StravaResourceState.PRIVATE) && segment.getPrivateSegment().equals(Boolean.TRUE) && !getToken().hasReadAllAccess()) {
 			segment = PrivacyUtils.privateSegment(segmentId);
 		}
 		// End of workaround
